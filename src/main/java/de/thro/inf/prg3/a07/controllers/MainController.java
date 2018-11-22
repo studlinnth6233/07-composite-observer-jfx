@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MainController implements Initializable {
 	public MainController() {
@@ -55,35 +56,49 @@ public class MainController implements Initializable {
 		mealsList.setItems(meals);
 
 		// set the event handler (callback)
-		btnRefresh.setOnAction(new EventHandler<ActionEvent>() {
+		btnRefresh.setOnAction(e -> doUpdate());
+	}
+
+	private void doUpdate() {
+		System.out.println("ok");
+		// vegie?
+		boolean v = chkVegetarian.isSelected();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+		final String today = sdf.format(new Date());
+
+		api.getMeals(229, today).enqueue(new Callback<List<Meal>>() {
 			@Override
-			public void handle(ActionEvent event) {
-				// vegie?
-				boolean v = chkVegetarian.isSelected();
+			public void onResponse(Call<List<Meal>> call, Response<List<Meal>> response) {
+				if (!response.isSuccessful()) return;
+				if (response.body() == null) return;
 
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-				final String today = sdf.format(new Date());
+				// run async update!
+				Platform.runLater(() -> {
+					List<Meal> meals = response.body()
+						.stream().filter(m -> !v || m.getNotes().stream().noneMatch(s -> s.toLowerCase().contains("fleisch")))
+						.collect(Collectors.toList());
 
-				api.getMeals(229, today).enqueue(new Callback<List<Meal>>() {
-					@Override
-					public void onResponse(Call<List<Meal>> call, Response<List<Meal>> response) {
-						if (!response.isSuccessful()) return;
-						if (response.body() == null) return;
-						Platform.runLater(() -> {
-
-							mealsList.getItems().clear();
-							mealsList.getItems().addAll(response.body());
-						});
-					}
-
-					@Override
-					public void onFailure(Call<List<Meal>> call, Throwable t) {
-						System.out.println("Meh");
-					}
+					mealsList.getItems().clear();
+					mealsList.getItems().addAll(meals);
 				});
+			}
 
-
+			@Override
+			public void onFailure(Call<List<Meal>> call, Throwable t) {
+				System.out.println("Meh");
 			}
 		});
+	}
+
+	@FXML
+	public void onCloseClicked() {
+		Platform.exit();
+		System.exit(0);
+	}
+
+	@FXML
+	public void chkBoxTick() {
+		doUpdate();
 	}
 }
