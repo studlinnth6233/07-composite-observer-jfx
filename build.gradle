@@ -1,15 +1,22 @@
 plugins {
-    id 'java'
-    id 'application'
-    id 'idea'
+	id 'java'
+	id 'application'
+	id 'idea'
 	id "com.google.osdetector" version "1.4.0"
 }
 
 group 'de.thro.inf.prg3'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = JavaVersion.VERSION_11
-ext.platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
+ sourceCompatibility = JavaVersion.VERSION_11
+
+def platformMap = [
+	osx    : 'mac',
+	windows: 'win',
+	linux  : 'linux'
+]
+
+ext.platform = platformMap[osdetector.os]
 
 mainClassName = 'de.thro.inf.prg3.a07.App'
 
