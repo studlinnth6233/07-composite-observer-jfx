@@ -11,7 +11,7 @@ In this assignment, you will
 - use variants of the [_observer_](https://en.wikipedia.org/wiki/Observer_pattern) patterns.
 
 At the end of the day, you will have implemented a little app that retrieves the current meal plan of the cafeteria.
-You can also opt for a (slightly more complex) [example using Android](https://github.com/hsro-inf-prg3/07-composite-observer).
+You can also opt for a (slightly more complex) [example using Android](https://github.com/hsro-inf-fpk//07-composite-observer-android).
 
 
 > Note: JavaFX is been removed from recent JDKs.
