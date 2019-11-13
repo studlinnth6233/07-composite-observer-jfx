@@ -17,13 +17,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class OpenMensaAPITests {
+class OpenMensaAPITests
+{
 
 	private static final Logger logger = LogManager.getLogger(OpenMensaAPITests.class);
 	private OpenMensaAPI openMensaAPI;
 
 	@BeforeAll
-	void setup() {
+	void setup()
+	{
 
 		// use this to intercept all requests and output them to the logging facilities
 		HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -43,7 +45,8 @@ class OpenMensaAPITests {
 	}
 
 	@Test
-	void testGetMeals() throws IOException {
+	void testGetMeals() throws IOException
+	{
 		// TODO prepare call
 
 		// TODO execute the call synchronously
@@ -54,7 +57,8 @@ class OpenMensaAPITests {
 		assertNotNull(meals);
 		assertNotEquals(0, meals.size());
 
-		for(Meal m : meals){
+		for (Meal m : meals)
+		{
 			logger.info(m.toString());
 		}
 	}

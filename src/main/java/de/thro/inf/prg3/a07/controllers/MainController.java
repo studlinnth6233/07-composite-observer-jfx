@@ -12,7 +12,8 @@ import javafx.scene.control.ListView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController implements Initializable
+{
 
 	// use annotation to tie to component in XML
 	@FXML
@@ -22,11 +23,14 @@ public class MainController implements Initializable {
 	private ListView<String> mealsList;
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(URL location, ResourceBundle resources)
+	{
 		// set the event handler (callback)
-		btnRefresh.setOnAction(new EventHandler<ActionEvent>() {
+		btnRefresh.setOnAction(new EventHandler<ActionEvent>()
+		{
 			@Override
-			public void handle(ActionEvent event) {
+			public void handle(ActionEvent event)
+			{
 				// create a new (observable) list and tie it to the view
 				ObservableList<String> list = FXCollections.observableArrayList("Hans", "Dampf");
 				mealsList.setItems(list);

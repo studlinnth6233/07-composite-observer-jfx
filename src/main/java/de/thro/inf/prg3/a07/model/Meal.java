@@ -10,50 +10,61 @@ import java.util.List;
  * Created by Peter Kurfer on 11/19/17.
  */
 
-public class Meal {
+public class Meal
+{
 	private int id;
 	private String name;
 	private String category;
 	private List<String> notes;
 
-	public Meal() {
+	public Meal()
+	{
 		notes = new LinkedList<>();
 	}
 
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(int id)
+	{
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		this.name = name;
 	}
 
-	public String getCategory() {
+	public String getCategory()
+	{
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(String category)
+	{
 		this.category = category;
 	}
 
-	public List<String> getNotes() {
+	public List<String> getNotes()
+	{
 		return notes;
 	}
 
-	public void setNotes(List<String> notes) {
+	public void setNotes(List<String> notes)
+	{
 		this.notes = notes;
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(Object o)
+	{
 		if (this == o) return true;
 
 		if (!(o instanceof Meal)) return false;
@@ -69,7 +80,8 @@ public class Meal {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		return new HashCodeBuilder(17, 37)
 			.append(getId())
 			.append(getName())
@@ -79,14 +91,18 @@ public class Meal {
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		StringBuilder notesBuilder = new StringBuilder();
-		for(String s : notes){
+		for (String s : notes)
+		{
 			notesBuilder.append(String.format("%s, ", s));
 		}
-		if(notesBuilder.length() > 0) {
+		if (notesBuilder.length() > 0)
+		{
 			notesBuilder.setLength(notesBuilder.length() - 2);
-		}else {
+		} else
+		{
 			notesBuilder.append("No notes");
 		}
 		return String.format("%s\n%s\n%s", name, category, notesBuilder.toString());
